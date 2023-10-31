@@ -1,9 +1,9 @@
-import { InputContainer } from './styles';
+import { InputContainer} from './styles';
 
-export default function Input() {
+export default function Input({value, onChange}) {
   return (
     <InputContainer>
-      <input></input>
+      <input value={value} onChange={onChange} placeholder='user/repository'></input>
     </InputContainer>
   );
 }
