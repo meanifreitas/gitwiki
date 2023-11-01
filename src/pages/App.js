@@ -9,6 +9,7 @@ import api from '../services/api';
 function App() {
   const [currentRepo, setCurrentRepo] = useState('');
   const [repos, setRepos] = useState([]);
+ 
   const handleSearchRepo = async () => {
     const {data} = await api.get(`repos/${currentRepo}`);
 
@@ -22,12 +23,17 @@ function App() {
     }
   }
 
+  const handleRemoveRepo = (id) => {
+    let newRepos = repos.filter(repo => repo.id !== id);
+    setRepos(newRepos);
+  }
+
   return (
     <Container className='App'>
       <img src={gitLogo} alt='Logo GitHub' width={72} height={72} />
       <Input value={currentRepo} onChange={(e) => setCurrentRepo(e.target.value)}/>
       <Button onClick={handleSearchRepo}/>
-      {repos.map(repo => <RepoItem repo={repo}/>)}
+      {repos.map(repo => <RepoItem repo={repo} handleRemoveRepo={handleRemoveRepo}/>)}
     </Container>
   );
 }
